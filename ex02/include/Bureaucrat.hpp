@@ -9,7 +9,7 @@
 # define DV "\x1b[1m\x1b[38;2;148;0;211m"
 # define C "\x1b[0m"
 
-class Form;
+class AForm;
 
 class Bureaucrat {
 	private:
@@ -27,7 +27,8 @@ class Bureaucrat {
 		int getGrade() const;
 		void incrementGrade();
 		void decrementGrade();
-		void signForm(Form & src);
+		void signForm(AForm & src);
+		void executeForm(AForm const & form) const;
 		
 		class GradeTooHighException : public std::exception {
 			public:

@@ -12,10 +12,16 @@
 
 SRCS = src/main.cpp\
 		src/Bureaucrat.cpp\
-		src/Form.cpp\
+		src/AForm.cpp\
+		src/ShrubberyCreationForm.cpp\
+		src/RobotomyRequestForm.cpp\
+		src/PresidentialPardonForm.cpp\
 
 INCL = include/Bureaucrat.hpp\
-		include/Form.hpp\
+		include/AForm.hpp\
+		include/ShrubberyCreationForm.hpp\
+		include/RobotomyRequestForm.hpp\
+		include/PresidentialPardonForm.hpp\
 
 NAME =  a.out
 

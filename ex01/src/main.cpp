@@ -46,4 +46,5 @@ int	main()
 
 	std::cout << "Too Low grade test:" << std::endl;
 	makeFormTest("Form4", 19, 42, b);
+	delete b;
 }

@@ -1,5 +1,5 @@
 #include "../include/Bureaucrat.hpp"
-#include "../include/Form.hpp"
+#include "../include/AForm.hpp"
 
 Bureaucrat::Bureaucrat() : name("default"), grade(150) {}
 
@@ -52,14 +52,23 @@ const char* Bureaucrat::GradeTooLowException::what() const throw() {
 	return RED "Error" C ": " YELLOW "Grade too low" C;
 }
 
-std::ostream& operator<<(std::ostream& os, const Bureaucrat& src){
+std::ostream& operator<<(std::ostream& os, const Bureaucrat& src) {
 	os << src.getName() << C "," MB " bureaucrat grade " GREEN << src.getGrade() << C << std::endl;
 	return os;
 }
 
-void Bureaucrat::signForm(Form & src) {
+void Bureaucrat::signForm(AForm & src) {
 	if (src.getIsSigned())
 		std::cout << DV << this->getName() << MB " signed " DV << src.getName() << C << std::endl;
 	else
 		std::cout << DV << this->getName() << MB " couldn’t sign " DV << src.getName() << MB " because " << YELLOW "grade is too low" C << std::endl;
+}
+
+void Bureaucrat::executeForm(AForm const & src) const {
+	if (!src.getIsSigned())
+		std::cout << DV << this->getName() << MB " couldn’t execute " DV << src.getName() << MB " because " << YELLOW "form is not signed" C << std::endl;
+	else if (this->getGrade() > src.getGradeToExecute())
+		std::cout << DV << this->getName() << MB " couldn’t execute " DV << src.getName() << MB " because " << YELLOW "grade is too low" C << std::endl;
+	else
+		std::cout << DV << this->getName() << MB " executed " DV << src.getName() << C << std::endl;
 }

@@ -1,62 +1,66 @@
-#include "../include/Form.hpp"
+#include "../include/AForm.hpp"
 #include "../include/Bureaucrat.hpp"
 
-Form::Form() : name("default"), isSigned(false), gradeToSign(150), gradeToExecute(150) {}
+AForm::AForm() : name("default"), isSigned(false), gradeToSign(150), gradeToExecute(150) {}
 
-Form::Form(Form const & src) : name(src.name), isSigned(src.isSigned), gradeToSign(src.gradeToSign), gradeToExecute(src.gradeToExecute) {}
+AForm::AForm(AForm const & src) : name(src.name), isSigned(src.isSigned), gradeToSign(src.gradeToSign), gradeToExecute(src.gradeToExecute) {}
 
-Form::~Form() {}
+AForm::~AForm() {}
 
-Form & Form::operator=(Form const & src) {
+AForm & AForm::operator=(AForm const & src) {
 	if (this != &src)
 		this->isSigned = src.isSigned;
 	return *this;
 }
 
-Form::Form(std::string const name, int const gradeToSign, int const gradeToExecute) : name(name), isSigned(false), gradeToSign(gradeToSign), gradeToExecute(gradeToExecute) {
+AForm::AForm(std::string const name, int const gradeToSign, int const gradeToExecute) : name(name), isSigned(false), gradeToSign(gradeToSign), gradeToExecute(gradeToExecute) {
 	if (gradeToSign < 1 || gradeToExecute < 1)
-		throw Form::GradeTooHighException();
+		throw AForm::GradeTooHighException();
 	if (gradeToSign > 150 || gradeToExecute > 150)
-		throw Form::GradeTooLowException();
+		throw AForm::GradeTooLowException();
 }
 
-std::string const Form::getName() const {
+std::string const AForm::getName() const {
 	return this->name;
 }
 
-bool Form::getIsSigned() const {
+bool AForm::getIsSigned() const {
 	return this->isSigned;
 }
 
-int Form::getGradeToSign() const {
+int AForm::getGradeToSign() const {
 	return this->gradeToSign;
 }
 
-int Form::getGradeToExecute() const {
+int AForm::getGradeToExecute() const {
 	return this->gradeToExecute;
 }
 
-void Form::beSigned(Bureaucrat & src) {
+void AForm::beSigned(Bureaucrat & src) {
 	if (src.getGrade() > this->gradeToSign)
 	{
 		src.signForm(*this);	
-		throw Form::GradeTooLowException();
+		throw AForm::GradeTooLowException();
 	}
 	this->isSigned = true;
 	src.signForm(*this);
 }
 
 
-const char* Form::GradeTooHighException::what() const throw() {
+const char* AForm::GradeTooHighException::what() const throw() {
 	return RED "Error" C ": " YELLOW "Grade too high" C;
 }
 
-const char* Form::GradeTooLowException::what() const throw() {
+const char* AForm::GradeTooLowException::what() const throw() {
 	return RED "Error" C ": " YELLOW "Grade too low" C;
 }
 
-std::ostream& operator<<(std::ostream& os, const Form& src) {
-	os << MB "Form " DV << src.getName() << MB " is ";
+const char* AForm::NotSignedException::what() const throw() {
+	return RED "Error" C ": " YELLOW "Form not signed" C;
+}
+
+std::ostream& operator<<(std::ostream& os, const AForm& src) {
+	os << MB "AForm " DV << src.getName() << MB " is ";
 	if (!src.getIsSigned())
 		os << "not ";
 	os << "signed, grade to sign: " GREEN << src.getGradeToSign() << MB ", grade to execute: " GREEN << src.getGradeToExecute() << C << std::endl;
