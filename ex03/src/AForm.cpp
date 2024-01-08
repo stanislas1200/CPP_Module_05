@@ -37,7 +37,9 @@ int AForm::getGradeToExecute() const {
 }
 
 void AForm::beSigned(Bureaucrat & src) {
-	if (src.getGrade() > this->gradeToSign)
+	if (this->isSigned)
+		throw AForm::AlreadySigned();
+	else if (src.getGrade() > this->gradeToSign)
 	{
 		src.signForm(*this);	
 		throw AForm::GradeTooLowException();
@@ -57,6 +59,10 @@ const char* AForm::GradeTooLowException::what() const throw() {
 
 const char* AForm::NotSignedException::what() const throw() {
 	return RED "Error" C ": " YELLOW "Form not signed" C;
+}
+
+const char* AForm::AlreadySigned::what() const throw() {
+	return RED "Error" C ": " YELLOW "Form already signed" C;
 }
 
 std::ostream& operator<<(std::ostream& os, const AForm& src) {

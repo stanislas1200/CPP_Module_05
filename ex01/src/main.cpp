@@ -38,6 +38,8 @@ int	main()
 		f.beSigned(*b);
 		std::cout << f;
 		std::cout << f2;
+		std::cout << "\nDouble sign test:" << std::endl;
+		f.beSigned(*b);
 	}
 	catch (std::exception & e) {
 		std::cout << e.what() << std::endl;
