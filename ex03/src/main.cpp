@@ -36,6 +36,5 @@ int	main()
 	std::cout << *rrf;
 	rrf->execute(b);
 	std::cout << std::endl;
-	delete rrf;
-	
+	delete rrf;	
 }

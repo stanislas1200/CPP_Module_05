@@ -82,6 +82,15 @@ int	main()
 		Bureaucrat c(b);
 		std::cout << b;
 		std::cout << c;
+		std::cout << "Increment b" << std::endl;
+		b.incrementGrade();
+		std::cout << b;
+		std::cout << c;
+		std::cout << "c = b" << std::endl;
+		c = b;
+		std::cout << b;
+		std::cout << c;
+		std::cout << "Increment b" << std::endl;
 		b.incrementGrade();
 		std::cout << b;
 		std::cout << c;
